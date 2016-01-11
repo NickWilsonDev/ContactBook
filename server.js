@@ -73,7 +73,7 @@ router.route('/contacts')
     })
 
 
-    /* GET for returning all contacts (http://localhost:8080/api/bears) */
+    /* GET for returning all contacts (http://localhost:8080/api/contacts) */
     .get(function(req, res) {
         Contact.find(function(err, contacts) {
             if (err)
@@ -131,6 +131,11 @@ router.route('/contacts/:contact_id')
         });
     });
 
+
+// help link to index.html for angular/frontend side
+app.get('*', function(req, res) {
+    res.sendfile('./public/index.html'); // load this single view file
+});
 
 app.listen(port);
 console.log("Server running on port " + port);

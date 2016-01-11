@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html ng-app="contactApp"> 
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+
+
+    <title>Node/Angular Contact Book App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+<!--    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+</head>
+<body>
+    <div class="leftContainer" ng-controller="mainController" 
+        style="float: left; width:50%;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contact in contacts">
+                    <td>{{ contact.name }}</td> 
+                    <td>{{ contact.number }}</td>
+                    <td>{{ contact.email }}</td>
+           
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="rightContainer" style="float: left; width: 50%">
+        <!-- form side -->
+        <center><b>Details</b></center>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+    <script src="core.js"></script>
+</body>
+</html>
