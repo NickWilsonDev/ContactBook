@@ -55,6 +55,11 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
     }
     $scope.setSelected = function(contact) {
         $scope.selected = this.contact;
-        console.log("row name selected: " + $scope.selected.name);
+        console.log("row name selected: " + $scope.selected.name + $scope.selected.number);
+    }
+
+    $scope.formClear = function() {
+        $scope.selected = {};
+        console.log("Form cleared");
     }
 }]);

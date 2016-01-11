@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
-<body>
+<body ng-controller="mainController as ctrl">
     <center><b>ContactApp</b></center>
     <div class="searchBar">
         <input type="text">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="overallContainer">
-        <div class="leftContainer" ng-controller="mainController">
+        <div class="leftContainer">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -45,13 +45,14 @@
         <div class="rightContainer">
             <!-- form side -->
             <center><b>Details</b></center>
-            <form novalidate>
-                Name: <input type="text" ng-model="contact.name">
-                Number: <input type ="text" ng-model="contact.number"><br>
-                Email: <input type="text" ng-model="contact.email">
-                Carrier: False<input type="radio" ng-model="contact.carrier" value="false">
-                True<input type="radio" ng-model="contact.carrier" value="true"><br>
-                Notes: <textarea ng-model="contact.notes" cols="50" rows="10"></textarea><br>
+            <form name="ctrl.contactForm" novalidate>
+                Name: <input type="text" ng-model="selected.name" name="name">
+                Number: <input type ="text" ng-model="selected.number" name="number"><br>
+                Email: <input type="text" ng-model="selected.email" name="email">
+                Carrier: False<input type="radio" ng-model="selected.carrier" value="false" name="carrierFalse">
+                True<input type="radio" ng-model="selected.carrier" value="true" name="carrierTrue"><br>
+                Notes: <textarea ng-model="selected.notes" cols="50" rows="10" name="notes"></textarea><br>
+                {{selected._id}}
                 <button ng-click="formSave()">Save</button>
                 <button ng-click="formClear()">Clear</button>
                 <button ng-click="deleteContact()">Delete</button>
