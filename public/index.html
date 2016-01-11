@@ -12,36 +12,52 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <body>
-    <div class="leftContainer" ng-controller="mainController" 
-        style="float: left; width:50%;">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="contact in contacts">
-                    <td>{{ contact.name }}</td> 
-                    <td>{{ contact.number }}</td>
-                    <td>{{ contact.email }}</td>
-           
-                </tr>
-            </tbody>
-        </table>
+    <center><b>ContactApp</b></center>
+    <div class="searchBar">
+        <input type="text">
+        <button ng-click="search()">Search</button>
     </div>
 
-    <div class="rightContainer" style="float: left; width: 50%">
-        <!-- form side -->
-        <center><b>Details</b></center>
-    </div>
+    <div class="overallContainer">
+        <div class="leftContainer" ng-controller="mainController">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="contact in contacts" ng-click="setSelected(contact);">
+                        <td>{{ contact.name }}</td> 
+                        <td>{{ contact.number }}</td>
+                        <td>{{ contact.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
+        <div class="rightContainer">
+            <!-- form side -->
+            <center><b>Details</b></center>
+            <form novalidate>
+                Name: <input type="text" ng-model="contact.name">
+                Number: <input type ="text" ng-model="contact.number"><br>
+                Email: <input type="text" ng-model="contact.email">
+                Carrier: False<input type="radio" ng-model="contact.carrier" value="false">
+                True<input type="radio" ng-model="contact.carrier" value="true"><br>
+                Notes: <textarea ng-model="contact.notes" cols="50" rows="10"></textarea><br>
+                <button ng-click="formSave()">Save</button>
+                <button ng-click="formClear()">Clear</button>
+                <button ng-click="deleteContact()">Delete</button>
+            </form>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
     <script src="core.js"></script>

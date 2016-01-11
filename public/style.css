@@ -1,0 +1,33 @@
+
+
+body {
+    background-color: #cce5ff;
+}
+
+/* Top search bar */
+.searchBar {
+    text-align: center;
+}
+
+.overallContainer {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+/* List of Contacts */
+.leftContainer {
+    /*min-height: 700px;
+    height: 700px; */
+    overflow: scroll;
+    float: left; width: 50%;
+    padding: 2%;
+    border: 2px solid black;
+}
+
+/* Form/details side */
+.rightContainer {
+    float: left; width: 50%;
+    padding: 2%;
+    border: 2px solid black;
+}

@@ -23,10 +23,8 @@ contactApp.factory('dataFactory', ['$http', function($http) {
 
 contactApp.controller('mainController', ['$scope', 'dataFactory',
     function($scope, dataFactory) {
-    
     $scope.status;
     $scope.contacts = [];
-    
     function getContacts() {
         dataFactory.getContacts().success(function(data) {
             $scope.contacts = data;
@@ -36,20 +34,16 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
             $scope.status = 'unable to load contacts data: ' + error.message;
         });
     }
-
     getContacts(); // so it is called automatically
-
 /*
     function getSpecificContact() {
         dataFactory.getContactById(id).success(function(data) {
             console.log("returning one contact");
-
         })
         .error(function(error) {
             $scope.status = 'unable to retrieve contact';
         });
     } */
-
     function addContact() {
         dataFactory.addContact().success(function(data) {
             console.log("new contact created");
@@ -59,8 +53,8 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
         });
         getContacts();
     }
-
+    $scope.setSelected = function(contact) {
+        $scope.selected = this.contact;
+        console.log("row name selected: " + $scope.selected.name);
+    }
 }]);
-        
-
-
