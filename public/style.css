@@ -17,8 +17,8 @@ body {
 
 /* List of Contacts */
 .leftContainer {
-    /*min-height: 700px;
-    height: 700px; */
+    max-height: 365px;
+    height: 365px; 
     overflow: scroll;
     float: left; width: 50%;
     padding: 2%;
@@ -30,4 +30,10 @@ body {
     float: left; width: 50%;
     padding: 2%;
     border: 2px solid black;
+}
+
+/* style for carriers to help make them stand out */
+.carrier {
+    color: red;
+    /* may add other things later */
 }
