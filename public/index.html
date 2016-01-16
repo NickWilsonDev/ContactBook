@@ -8,7 +8,6 @@
 
     <title>Node/Angular Contact Book App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-<!--    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -18,8 +17,7 @@
 <body ng-controller="mainController as ctrl">
     <center><b>ContactApp</b></center>
     <div class="searchBar">
-        <input type="text">
-        <button ng-click="search()">Search</button>
+        <input type="text" placeholder="Search Contacts" ng-model="searchContacts">
     </div>
 
     <div class="overallContainer">
@@ -33,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-class="{'carrier':contact.carrier == true}" ng-repeat="contact in contacts" ng-click="setSelected(contact);">
+                    <tr ng-class="{'carrier':contact.carrier == true}" ng-repeat="contact in contacts | filter:searchContacts" ng-click="setSelected(contact);">
                         <td>{{ contact.name }}</td> 
                         <td>{{ contact.number }}</td>
                         <td>{{ contact.email }}</td>
@@ -49,10 +47,9 @@
                 Name: <input type="text" ng-model="selected.name" name="name">
                 Number: <input type ="text" ng-model="selected.number" name="number"><br>
                 Email: <input type="text" ng-model="selected.email" name="email">
-                Carrier: False<input type="radio" ng-model="selected.carrier" value="false" name="carrierFalse">
-                True<input type="radio" ng-model="selected.carrier" value="true" name="carrierTrue"><br>
+                Carrier: False<input type="radio" ng-model="selected.carrier" ng-value="false" name="carrierFalse">
+                True<input type="radio" ng-model="selected.carrier" ng-value="true" name="carrierTrue"><br>
                 Notes: <textarea ng-model="selected.notes" cols="50" rows="10" name="notes"></textarea><br>
-                {{selected._id}}
                 <button ng-click="addContact()">Save</button>
                 <button ng-click="formClear()">Clear</button>
                 <button ng-click="deleteContact()">Delete</button>
