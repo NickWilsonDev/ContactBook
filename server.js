@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 // mongoose is used to interact with MongoDB
 var mongoose = require('mongoose');
 
+// use specified data schema
 var Contact = require('./models/contact');
 
 // Connect to contactList MongoDB

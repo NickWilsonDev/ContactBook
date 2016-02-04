@@ -1,5 +1,4 @@
 // public/core.js
-// need to make this a modern version 
 var contactApp = angular.module('contactApp', []);
 
 contactApp.factory('dataFactory', ['$http', function($http) {
@@ -44,15 +43,6 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
         });
     }
     getContacts(); // so it is called automatically
-/*
-    function getSpecificContact() {
-        dataFactory.getContactById(id).success(function(data) {
-            console.log("returning one contact");
-        })
-        .error(function(error) {
-            $scope.status = 'unable to retrieve contact';
-        });
-    } */
 
     $scope.addContact = function addContact() {
         if (!isEmpty($scope.selected)) { 
