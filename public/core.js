@@ -1,6 +1,18 @@
 // public/core.js
 var contactApp = angular.module('contactApp', []);
 
+// IE browser caches get requests, this needs to be disabled so application
+// will behave as it should
+contactApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.cache = false;
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};
+    }
+    // disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+}]);
+
+
 contactApp.factory('dataFactory', ['$http', function($http) {
     var urlBase = '/api/contacts'
     var dataFactory = {};

@@ -4,6 +4,7 @@
   "dependencies": {
     "express": "~4.13.3",
     "body-parser": "~1.14.2",
-    "mongoose": "~4.3.4"
+    "mongoose": "~4.3.4",
+    "jsonwebtoken": "~5.5.4"
   }
 }

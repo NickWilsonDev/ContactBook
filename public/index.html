@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-class="{'carrier':contact.carrier == true}" ng-repeat="contact in contacts | filter:searchContacts" ng-click="setSelected(contact);">
+                    <tr ng-class="{'carrier':contact.carrier == true}" ng-repeat="contact in contacts | orderBy:'name' | filter:searchContacts" ng-click="setSelected(contact);">
                         <td>{{ contact.name }}</td> 
                         <td>{{ contact.number }}</td>
                         <td>{{ contact.email }}</td>
