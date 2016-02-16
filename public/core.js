@@ -2,15 +2,16 @@
 var contactApp = angular.module('contactApp', []);
 
 // IE browser caches get requests, this needs to be disabled so application
-// will behave as it should
-contactApp.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.cache = false;
-    if (!$httpProvider.defaults.headers.get) {
-        $httpProvider.defaults.headers.get = {};
-    }
-    // disable IE ajax request caching
-    $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
-}]);
+// will behave as it should, commented out because it may have been introducing
+// other bugs
+//contactApp.config(['$httpProvider', function($httpProvider) {
+//    $httpProvider.defaults.cache = false;
+//    if (!$httpProvider.defaults.headers.get) {
+//        $httpProvider.defaults.headers.get = {};
+//    }
+//    // disable IE ajax request caching
+//    $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+//}]);
 
 
 contactApp.factory('dataFactory', ['$http', function($http) {
@@ -31,7 +32,7 @@ contactApp.factory('dataFactory', ['$http', function($http) {
     // need others update delete ect.
     dataFactory.updateContact = function(contact) {
         console.log("factory contact_id:: " + contact._id);
-        return $http.put(urlBase + '/' + contact._id);
+        return $http.put(urlBase + '/' + contact._id, contact);
     };
     dataFactory.deleteContact = function(id) {
         return $http.delete(urlBase + '/' + id);
@@ -44,10 +45,15 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
     $scope.status;
     $scope.contacts = [];
 
+    // Get all Contacts
     function getContacts() {
         dataFactory.getContacts().success(function(data) {
             $scope.contacts = data;
-            console.log("contact list: " + $scope.contacts);
+            var contactString = "contact list: ";
+            for(var i = 0; i < $scope.contacts.length ; i++) { 
+                contactString += " " + $scope.contacts[i].name;
+            }
+            console.log(contactString);
         })
         .error(function(error) {
             //$scope.status = 'unable to load contacts data: ' + error.message;
@@ -56,37 +62,38 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
     }
     getContacts(); // so it is called automatically
 
+    // Add/Update Contact
     $scope.addContact = function addContact() {
-        if (!isEmpty($scope.selected)) { 
-            //console.log("selected id:: " + $scope.selected._id);
+        if (!isEmpty($scope.selected)) {  // 
+            console.log("selected id:: " + $scope.selected._id);
             if ($scope.selected._id == null) {
                 dataFactory.addContact($scope.selected).success(function(data) {
-            
                     console.log("new contact created " + data.name);
                 })
                 .error(function(error) {
-                    //$scope.status = 'unable to creat new contact: ' + error.message;
                     console.log('unable to create new contact');
                 });
                 getContacts();
                 formClear();
             } else {
+                //update contact
                 dataFactory.updateContact($scope.selected).success(function(data) {
-                    console.log("contact updated " + data.name);
+                    console.log("contact updated " + $scope.selected.name);
+                    formClear();
                 })
                 .error(function(error) {
                     console.log("contact not updated !!!");
-                    //$scope.status = 'unable to update contact: ' + error.message;
+                    formClear();
                 });
-                //getContacts();
-                formClear();
             }
         }
     }
 
+    // Delete Contact
     $scope.deleteContact = function deleteContact() {
+        var tempContact = $scope.selected;
         dataFactory.deleteContact($scope.selected._id).success(function(data) {
-            console.log("contact deleted " + $scope.selected.name);
+            console.log("contact deleted " + tempContact.name);
         })
         .error(function(error) {
             $scope.status = 'unable to delete contact: ' + error.message;
@@ -97,7 +104,7 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
 
     $scope.setSelected = function(contact) {
         $scope.selected = this.contact;
-        console.log("row name selected: " + $scope.selected.name + $scope.selected.number);
+        console.log("row name selected: " + $scope.selected.name + " id: " + $scope.selected._id);
     }
 
     $scope.formClear = function() {
@@ -106,12 +113,17 @@ contactApp.controller('mainController', ['$scope', 'dataFactory',
 
     function formClear() {
         $scope.selected = {};
-        console.log("Form cleared");
+        console.log("Form cleared " + $scope.selected.name);
+        console.log($scope.selected._id);
     }
 
     // test if object is empty
     function isEmpty(obj) {
-            return Object.keys(obj).length === 0;
+        if (Object.keys(obj).length === 0) {
+            console.log("object is empty!!");
+        } else {
+            console.log("object is not empty");
+        }
+        return (Object.keys(obj).length === 0);
     }
-
 }]);

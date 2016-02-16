@@ -23,9 +23,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 var port = process.env.PORT || 8080; // set port
-
 
 var Contact = require('./models/contact');
 
@@ -66,13 +64,13 @@ router.route('/contacts')
 
         // save contact and check for errors
         contact.save(function(err) {
-            if (err)
+            if (err) {
                 res.send(err);
-
+                console.log("Error contact.save: " + err);
+            }
             res.json({ message: 'Contact created!' });
         });
     })
-
 
     /* GET for returning all contacts (http://localhost:8080/api/contacts) */
     .get(function(req, res) {
@@ -104,6 +102,14 @@ router.route('/contacts/:contact_id')
                 res.send(err);
 
             // update contact's details
+            console.log("-------------Update------------");
+            console.log("req.name : " + req.body.name);
+            console.log("req.number : " + req.body.number);
+            console.log("req.email : " + req.body.email);
+            console.log("req.notes : " + req.body.notes);
+            console.log("req.carrier : " + req.body.carrier);
+            console.log("-------------------------------");
+
             contact.name = req.body.name;
             contact.number = req.body.number;
             contact.email = req.body.email;
